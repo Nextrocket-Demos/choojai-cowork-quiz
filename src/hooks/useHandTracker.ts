@@ -19,15 +19,22 @@ export interface HandTracker {
 }
 
 export async function createHandTracker(): Promise<HandTracker> {
-  const vision = await FilesetResolver.forVisionTasks(WASM_BASE);
-  const landmarker = await HandLandmarker.createFromOptions(vision, {
-    baseOptions: { modelAssetPath: MODEL_PATH, delegate: 'GPU' },
-    runningMode: 'VIDEO',
-    numHands: 1,
-    minHandDetectionConfidence: 0.5,
-    minHandPresenceConfidence: 0.5,
-    minTrackingConfidence: 0.5,
-  });
+  let vision: Awaited<ReturnType<typeof FilesetResolver.forVisionTasks>>;
+  let landmarker: HandLandmarker;
+  try {
+    vision = await FilesetResolver.forVisionTasks(WASM_BASE);
+    landmarker = await HandLandmarker.createFromOptions(vision, {
+      baseOptions: { modelAssetPath: MODEL_PATH, delegate: 'GPU' },
+      runningMode: 'VIDEO',
+      numHands: 1,
+      minHandDetectionConfidence: 0.5,
+      minHandPresenceConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    throw new Error(`Failed to initialize MediaPipe hand tracker: ${msg}`);
+  }
 
   let rafId: number | null = null;
   let running = false;
