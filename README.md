@@ -2,7 +2,7 @@
 
 Mobile-only static web quiz: selfie cam + MediaPipe pinch gesture, 5 questions recapping the Choojai Cowork training.
 
-**Live:** https://nextrocket-labs.github.io/choojai-cowork-quiz/
+**Live:** https://nextrocket-demos.github.io/choojai-cowork-quiz/
 
 ## Run locally
 
