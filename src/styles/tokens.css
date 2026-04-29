@@ -1,0 +1,31 @@
+:root {
+  --color-bg:            #FAF7F0;
+  --color-primary:       #69B609;
+  --color-primary-dark:  #2D4A0A;
+  --color-primary-soft:  #F4F8E8;
+  --color-zone-left:     #FFF3E0;
+  --color-zone-left-bd:  #FF9F40;
+  --color-zone-right:    #E8F5E8;
+  --color-zone-right-bd: #69B609;
+  --color-text:          #2D4A0A;
+  --color-error:         #D9534F;
+
+  --duration-confirm:    1500ms;
+  --ease-out-expo:       cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@font-face {
+  font-family: 'IBM Plex Sans Thai';
+  src: url('/fonts/IBMPlexSansThai-Regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans Thai';
+  src: url('/fonts/IBMPlexSansThai-SemiBold.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'IBM Plex Sans Thai';
+  src: url('/fonts/IBMPlexSansThai-Bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
