@@ -37,6 +37,9 @@ export async function QuizScreen(opts: QuizScreenOpts): Promise<QuizScreenHandle
   video.style.objectFit = 'cover';
   video.style.transform = 'scaleX(-1)'; // mirror display
   root.appendChild(video);
+  // iOS Safari may detach srcObject when video is removed from DOM — re-attach + replay
+  if (video.srcObject !== opts.camera.stream) video.srcObject = opts.camera.stream;
+  video.play().catch(() => {});
 
   // Overlays
   root.appendChild(QuestionCard({ index: opts.index, total: opts.total, questionText: opts.question.question }));

@@ -1,5 +1,6 @@
 export interface CameraHandle {
   video: HTMLVideoElement;
+  stream: MediaStream;
   stop: () => void;
 }
 
@@ -7,6 +8,7 @@ export async function startSelfieCamera(): Promise<CameraHandle> {
   const stream = await navigator.mediaDevices.getUserMedia({
     video: {
       facingMode: 'user',
+      aspectRatio: { ideal: 9 / 16 },
       width:  { ideal: 720 },
       height: { ideal: 1280 },
     },
@@ -22,6 +24,7 @@ export async function startSelfieCamera(): Promise<CameraHandle> {
 
   return {
     video,
+    stream,
     stop: () => {
       stream.getTracks().forEach((t) => t.stop());
       video.srcObject = null;

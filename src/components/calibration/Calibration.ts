@@ -13,6 +13,8 @@ export async function Calibration(camera: CameraHandle, onDone: () => void): Pro
   v.style.width = '100%'; v.style.height = '100%'; v.style.objectFit = 'cover';
   v.style.transform = 'scaleX(-1)';
   root.appendChild(v);
+  if (v.srcObject !== camera.stream) v.srcObject = camera.stream;
+  v.play().catch(() => {});
 
   const cursor = PinchCursor(); root.appendChild(cursor.root);
 
