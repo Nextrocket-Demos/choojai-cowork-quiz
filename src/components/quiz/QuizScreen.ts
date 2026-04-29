@@ -26,20 +26,9 @@ const LEFT_RECT:  Rect = { x: 0.04, y: 0.225, width: 0.28, height: 0.55 };
 const RIGHT_RECT: Rect = { x: 0.68, y: 0.225, width: 0.28, height: 0.55 };
 
 export async function QuizScreen(opts: QuizScreenOpts): Promise<QuizScreenHandle> {
-  const root = el('div', { class: 'relative h-full w-full bg-black overflow-hidden font-thai' });
-
-  // Video — mirrored selfie
-  const video = opts.camera.video;
-  video.style.position = 'absolute';
-  video.style.inset = '0';
-  video.style.width = '100%';
-  video.style.height = '100%';
-  video.style.objectFit = 'cover';
-  video.style.transform = 'scaleX(-1)'; // mirror display
-  root.appendChild(video);
-  // iOS Safari may detach srcObject when video is removed from DOM — re-attach + replay
-  if (video.srcObject !== opts.camera.stream) video.srcObject = opts.camera.stream;
-  video.play().catch(() => {});
+  // Root is a transparent overlay — the video element lives in the persistent
+  // camera layer (mounted by router). We only render UI on top of it.
+  const root = el('div', { class: 'relative h-full w-full overflow-hidden font-thai' });
 
   // Overlays
   root.appendChild(QuestionCard({ index: opts.index, total: opts.total, questionText: opts.question.question }));
@@ -85,7 +74,7 @@ export async function QuizScreen(opts: QuizScreenOpts): Promise<QuizScreenHandle
     },
   });
 
-  tracker.start(video, (frame) => detector.tick(frame, performance.now()));
+  tracker.start(opts.camera.video, (frame) => detector.tick(frame, performance.now()));
 
   return {
     root,

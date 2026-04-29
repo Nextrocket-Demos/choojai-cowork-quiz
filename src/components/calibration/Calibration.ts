@@ -6,15 +6,9 @@ import type { CameraHandle } from '../../lib/camera';
 export interface CalibrationHandle { root: HTMLElement; cleanup: () => void; }
 
 export async function Calibration(camera: CameraHandle, onDone: () => void): Promise<CalibrationHandle> {
-  const root = el('div', { class: 'relative h-full w-full bg-black overflow-hidden font-thai' });
-
-  const v = camera.video;
-  v.style.position = 'absolute'; v.style.inset = '0';
-  v.style.width = '100%'; v.style.height = '100%'; v.style.objectFit = 'cover';
-  v.style.transform = 'scaleX(-1)';
-  root.appendChild(v);
-  if (v.srcObject !== camera.stream) v.srcObject = camera.stream;
-  v.play().catch(() => {});
+  // Root is transparent overlay — the video lives in the persistent camera layer
+  // managed by the router. We only render UI on top of it.
+  const root = el('div', { class: 'relative h-full w-full font-thai pointer-events-none' });
 
   const cursor = PinchCursor(); root.appendChild(cursor.root);
 
@@ -29,7 +23,7 @@ export async function Calibration(camera: CameraHandle, onDone: () => void): Pro
   let done = false;
   const finish = () => { if (done) return; done = true; tracker.stop(); onDone(); };
 
-  tracker.start(v, (frame) => {
+  tracker.start(camera.video, (frame) => {
     cursor.setPosition(frame.pinching ? frame.cursor : null);
     if (frame.pinching) finish();
   });
