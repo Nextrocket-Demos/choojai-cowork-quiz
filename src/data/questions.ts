@@ -1,0 +1,52 @@
+import type { Question } from '../types';
+
+export const QUESTIONS: readonly Question[] = [
+  {
+    id: 1,
+    block: 'Block 1',
+    question: 'AI Agent คือ AI ที่ตอบเก่งกว่า ChatGPT แค่นั้น — จบ',
+    leftLabel: 'จริง',
+    rightLabel: 'มั่ว',
+    correct: 'right',
+    explanation: 'AI Agent = LLM + tools + memory + planning (ไม่ใช่แค่ตอบเก่งกว่าเดิม)',
+  },
+  {
+    id: 2,
+    block: 'Block 1',
+    question: 'Cowork คือ?',
+    leftLabel: 'AI หลายตัวทำงานร่วมกัน',
+    rightLabel: 'ChatGPT ที่ UI สวยกว่าเดิม',
+    correct: 'left',
+    explanation: 'Multi-agent collaboration — Director + Specialists ทีมเดียว',
+  },
+  {
+    id: 3,
+    block: 'Block 3',
+    goal: 'B',
+    question: 'creative ที่เขียนเสียง Choojai ลาออก แต่ Brand Voice Skill ยังอยู่ ทีมจะ?',
+    leftLabel: 'เขียนเสียง Choojai ได้ต่อ',
+    rightLabel: 'เสียง Choojai หายไปด้วย',
+    correct: 'left',
+    explanation: 'Skill = ความรู้ทีมที่ encoded ไว้ → ไม่หายตามคน',
+  },
+  {
+    id: 4,
+    block: 'Block 4',
+    goal: 'A',
+    question: 'Quality Gate ใน report assistant ทำหน้าที่อะไร?',
+    leftLabel: 'เร่ง agent ทำงานเร็วขึ้น',
+    rightLabel: 'หยุดให้คนยืนยันก่อนทำต่อ',
+    correct: 'right',
+    explanation: 'Brake pedal = ป้องกัน "AI run wild" ตั้งแต่ data ผิด',
+  },
+  {
+    id: 5,
+    block: 'Block 2',
+    goal: 'C',
+    question: 'AI Agent ที่ไว้ใจได้ เจอข้อมูลที่ verify ไม่ได้ ควรทำอะไร?',
+    leftLabel: 'เดาให้เลย จะได้จบ',
+    rightLabel: 'บอก "ไม่มีหลักฐาน"',
+    correct: 'right',
+    explanation: 'Citation discipline — AI ที่ดี = รู้จักพูดคำว่า "ไม่รู้"',
+  },
+] as const;
